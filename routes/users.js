@@ -14,13 +14,13 @@ router.post("/signUp", async (req, res) => {
       password: bcrypt.hashSync(req.body.password, 10),
       token: uid2(32),
       predictions: {
-        gender: "",
+        gender: null,
         firstName: {
           boy: [],
           girl: [],
         },
 
-        birthDay: new Date(2024, 11, 26),
+        birthDay: null,
       },
     }).save();
     res.json({ result: true, user });

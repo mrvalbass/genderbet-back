@@ -88,8 +88,6 @@ router.put("/updateFirstName", async (req, res) => {
 
 router.put("/updateBirthday", async (req, res) => {
   try {
-    console.log(req.body.date);
-
     const user = await User.findOneAndUpdate(
       { token: req.body.token },
       {
@@ -97,6 +95,24 @@ router.put("/updateBirthday", async (req, res) => {
       },
       { new: true }
     );
+    res.json({ result: true, user });
+  } catch (error) {
+    res.json({ result: false, error: error.message });
+  }
+});
+
+router.put("/updatePassword", async (req, res) => {
+  try {
+    if (req.body.password.length < 6)
+      throw new Error("password must be at least 6 characters");
+    const user = await User.findOneAndUpdate(
+      { email: req.body.email },
+      {
+        password: bcrypt.hashSync(req.body.password, 10),
+      },
+      { new: true }
+    );
+    if (!user) throw new Error("User not found");
     res.json({ result: true, user });
   } catch (error) {
     res.json({ result: false, error: error.message });

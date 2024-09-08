@@ -4,6 +4,15 @@ const bcrypt = require("bcrypt");
 const router = express.Router();
 const User = require("../models/users");
 
+router.get("/", async (req, res) => {
+  try {
+    const users = await User.find();
+    res.json({ result: true, users });
+  } catch (error) {
+    res.json({ result: false, error: error.message });
+  }
+});
+
 router.post("/signUp", async (req, res) => {
   try {
     if (req.body.password.length < 6)
@@ -25,8 +34,6 @@ router.post("/signUp", async (req, res) => {
     }).save();
     res.json({ result: true, user });
   } catch (error) {
-    console.log(error.message);
-
     res.json({ result: false, error: error.message });
   }
 });

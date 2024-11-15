@@ -85,7 +85,7 @@ router.put("/updateFirstName", async (req, res) => {
           girl: req.body.girl,
         },
       },
-      { new: true }
+      { new: true, runValidators: true }
     );
     res.json({ result: true, user });
   } catch (error) {

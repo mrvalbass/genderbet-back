@@ -6,20 +6,20 @@ const firstNameSchema = mongoose.Schema(
       type: [String],
       validate: {
         validator: function (value) {
-          return value.length === 3;
+          return value.length <= 3;
         },
         message: (props) =>
-          `Le tableau doit contenir entre 3 éléments, mais il en contient ${props.value.length}.`,
+          `Le tableau doit contenir 3 éléments maximum, mais il en contient ${props.value.length}.`,
       },
     },
     girl: {
       type: [String],
       validate: {
         validator: function (value) {
-          return value.length === 3;
+          return value.length <= 3;
         },
         message: (props) =>
-          `Le tableau doit contenir entre 3 éléments, mais il en contient ${props.value.length}.`,
+          `Le tableau doit contenir 3 éléments maximum, mais il en contient ${props.value.length}.`,
       },
     },
   },
